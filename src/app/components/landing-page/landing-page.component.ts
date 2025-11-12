@@ -1,51 +1,115 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy, HostListener } from '@angular/core';
+import { TranslationService } from '../../services/translation.service';
 
 @Component({
   selector: 'app-landing-page',
   templateUrl: './landing-page.component.html',
   styleUrls: ['./landing-page.component.scss']
 })
-export class LandingPageComponent implements OnInit {
+export class LandingPageComponent implements OnInit, OnDestroy {
   currentTheme: 'light' | 'dark' = 'light';
-  whatsappNumber: string = '5511999999999'; // Coloque seu número com código do país (55) + DDD + número
+  currentLang: 'pt' | 'en' = 'pt';
+  menuOpen = false;
+  whatsappNumber = '5511999999999';
+  
+  feedbacks: number[] = [1, 2, 3, 4, 5];
+  currentFeedbacks: number[] = [];
+  activeFeedbackIndex: number = 0;
+  private feedbackInterval: any;
 
-  ngOnInit(): void {
-    // Carrega o tema salvo do localStorage
+  constructor(private translationService: TranslationService) {}
+
+  ngOnInit() {
+    // Carregar tema do localStorage
     const savedTheme = localStorage.getItem('theme') as 'light' | 'dark';
     if (savedTheme) {
       this.currentTheme = savedTheme;
-    } else {
-      // Detecta preferência do sistema
-      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-      this.currentTheme = prefersDark ? 'dark' : 'light';
+      document.body.setAttribute('data-theme', savedTheme);
     }
-    this.applyTheme();
+
+    // Carregar idioma do localStorage ou detectar do navegador
+    const savedLang = localStorage.getItem('lang') as 'pt' | 'en';
+    if (savedLang) {
+      this.currentLang = savedLang;
+      this.translationService.setLanguage(savedLang);
+    } else {
+      const browserLang = navigator.language.startsWith('pt') ? 'pt' : 'en';
+      this.currentLang = browserLang;
+      this.translationService.setLanguage(browserLang);
+    }
+
+    // Inicializar feedbacks
+    this.initializeFeedbacks();
+    this.startFeedbackCarousel();
   }
 
-  toggleTheme(): void {
+  ngOnDestroy() {
+    if (this.feedbackInterval) {
+      clearInterval(this.feedbackInterval);
+    }
+  }
+
+  toggleTheme() {
     this.currentTheme = this.currentTheme === 'light' ? 'dark' : 'light';
-    this.applyTheme();
     localStorage.setItem('theme', this.currentTheme);
-  }
-
-  private applyTheme(): void {
     document.body.setAttribute('data-theme', this.currentTheme);
   }
 
-  abrirWhatsApp(mensagem: string = ''): void {
-    const mensagemEncoded = encodeURIComponent(mensagem);
-    const url = `https://wa.me/${this.whatsappNumber}?text=${mensagemEncoded}`;
-    window.open(url, '_blank');
+  toggleLanguage() {
+    this.currentLang = this.currentLang === 'pt' ? 'en' : 'pt';
+    localStorage.setItem('lang', this.currentLang);
+    this.translationService.setLanguage(this.currentLang);
   }
 
-  solicitarOrcamento(): void {
-    const mensagem = 'Olá! Gostaria de solicitar um orçamento para um projeto. Poderia me passar mais informações?';
+  toggleMenu() {
+    this.menuOpen = !this.menuOpen;
+  }
+
+  closeMenu() {
+    this.menuOpen = false;
+  }
+
+  initializeFeedbacks() {
+    // Embaralhar e pegar 3 aleatórios
+    const shuffled = [...this.feedbacks].sort(() => Math.random() - 0.5);
+    this.currentFeedbacks = shuffled.slice(0, 3);
+  }
+
+  startFeedbackCarousel() {
+    this.feedbackInterval = setInterval(() => {
+      this.activeFeedbackIndex = (this.activeFeedbackIndex + 1) % 3;
+    }, 6000);
+  }
+
+  @HostListener('window:scroll')
+  checkScroll() {
+    const scrollElements = document.querySelectorAll('.scroll-animate');
+    const windowHeight = window.innerHeight;
+
+    scrollElements.forEach((el) => {
+      const elementTop = el.getBoundingClientRect().top;
+      if (elementTop < windowHeight - 150) {
+        el.classList.add('active');
+      }
+    });
+  }
+
+  abrirWhatsApp(mensagem: string) {
+    const mensagemCodificada = encodeURIComponent(mensagem);
+    window.open(`https://wa.me/${this.whatsappNumber}?text=${mensagemCodificada}`, '_blank');
+  }
+
+  solicitarOrcamento() {
+    const mensagem = this.currentLang === 'pt' 
+      ? 'Olá! Gostaria de solicitar um orçamento para desenvolvimento de software.'
+      : 'Hello! I would like to request a quote for software development.';
     this.abrirWhatsApp(mensagem);
   }
 
-  contatoRapido(): void {
-    const mensagem = 'Olá! Gostaria de mais informações sobre os serviços da SENTS.';
+  contatoRapido() {
+    const mensagem = this.currentLang === 'pt'
+      ? 'Olá! Gostaria de saber mais sobre os serviços da SENTS.'
+      : 'Hello! I would like to know more about SENTS services.';
     this.abrirWhatsApp(mensagem);
   }
 }
-

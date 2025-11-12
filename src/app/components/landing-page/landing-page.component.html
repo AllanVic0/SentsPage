@@ -2,16 +2,35 @@
 <header class="header" [attr.data-theme]="currentTheme">
   <div class="container">
     <nav class="navbar">
-      <div class="logo">
-        <h2>SENTS</h2>
-      </div>
-      <ul class="nav-menu">
-        <li><a href="#home" class="nav-link">Home</a></li>
-        <li><a href="#sobre" class="nav-link">Sobre</a></li>
-        <li><a href="#servicos" class="nav-link">Serviços</a></li>
-        <li><a href="#orcamento" class="nav-link btn-orcamento">Orçamento</a></li>
-        <li>
-          <button class="theme-toggle" (click)="toggleTheme()" [title]="currentTheme === 'light' ? 'Modo Escuro' : 'Modo Claro'">
+      <a href="#home" class="logo">
+        <img 
+          [src]="currentTheme === 'dark' ? 'assets/images/logos/sentsBranco.png' : 'assets/images/logos/sents1.png'" 
+          alt="SENTS" 
+          class="logo-image"
+        >
+      </a>
+      
+      <!-- Mobile Menu Toggle -->
+      <button class="menu-toggle" (click)="toggleMenu()" [class.active]="menuOpen">
+        <span class="hamburger-line"></span>
+        <span class="hamburger-line"></span>
+        <span class="hamburger-line"></span>
+      </button>
+
+      <!-- Navigation Menu -->
+      <ul class="nav-menu" [class.active]="menuOpen">
+        <li><a href="#home" class="nav-link" (click)="closeMenu()">{{ 'nav.home' | translate }}</a></li>
+        <li><a href="#sobre" class="nav-link" (click)="closeMenu()">{{ 'nav.about' | translate }}</a></li>
+        <li><a href="#servicos" class="nav-link" (click)="closeMenu()">{{ 'nav.services' | translate }}</a></li>
+        <li><a href="#orcamento" class="nav-link btn-orcamento" (click)="closeMenu()">{{ 'nav.budget' | translate }}</a></li>
+        <li class="nav-controls">
+          <button class="lang-toggle" (click)="toggleLanguage()" [title]="currentLang === 'pt' ? 'Switch to English' : 'Mudar para Português'">
+            <span class="lang-flag">{{ currentLang === 'pt' ? '🇺🇸' : '🇧🇷' }}</span>
+            <span class="lang-text">{{ currentLang === 'pt' ? 'EN' : 'PT' }}</span>
+          </button>
+        </li>
+        <li class="nav-controls">
+          <button class="theme-toggle" (click)="toggleTheme()" [title]="currentTheme === 'light' ? ('theme.dark' | translate) : ('theme.light' | translate)">
             <svg *ngIf="currentTheme === 'light'" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
               <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
             </svg>
@@ -34,54 +53,74 @@
 </header>
 
 <!-- Hero Section -->
-<section id="home" class="hero" [attr.data-theme]="currentTheme">
+<!-- Hero Section -->
+<section class="hero">
   <div class="container">
-    <div class="hero-content">
-      <h1 class="hero-title">Transformando Ideias em Soluções Digitais</h1>
-      <p class="hero-subtitle">Desenvolvemos software sob medida para impulsionar o seu negócio com tecnologia de ponta e excelência em cada projeto</p>
+    <div class="hero-content scroll-animate">
+      <h1 class="hero-title">{{ 'hero.title' | translate }}</h1>
+      <p class="hero-subtitle">{{ 'hero.subtitle' | translate }}</p>
       <div class="hero-buttons">
-        <a href="#orcamento" class="btn btn-primary">Solicitar Orçamento</a>
-        <a href="#sobre" class="btn btn-secondary">Conheça Mais</a>
+        <button class="btn btn-primary btn-large" (click)="solicitarOrcamento()">
+          {{ 'hero.cta' | translate }}
+        </button>
       </div>
     </div>
   </div>
-  <div class="hero-background"></div>
 </section>
 
 <!-- Sobre Section -->
 <section id="sobre" class="sobre" [attr.data-theme]="currentTheme">
   <div class="container">
-    <div class="section-header">
-      <h2 class="section-title">Sobre a SENTS</h2>
-      <p class="section-subtitle">Excelência em desenvolvimento de software desde 2020</p>
+    <div class="section-header scroll-animate">
+      <h2 class="section-title">{{ 'about.title' | translate }}</h2>
+      <p class="section-subtitle">{{ 'about.subtitle' | translate }}</p>
     </div>
-    <div class="sobre-content">
+    <div class="sobre-content scroll-animate">
       <div class="sobre-text">
-        <h3>Quem Somos</h3>
-        <p>Somos uma fábrica de software especializada em criar soluções tecnológicas inovadoras e personalizadas. Nossa equipe de profissionais altamente qualificados trabalha com as mais modernas tecnologias do mercado para entregar produtos que superam expectativas.</p>
-        <p>Com anos de experiência no mercado, já atendemos empresas de diversos segmentos, desde startups até grandes corporações, sempre focados em qualidade, prazo e satisfação do cliente.</p>
+        <h3>{{ 'about.who.title' | translate }}</h3>
+        <p>{{ 'about.who.text1' | translate }}</p>
+        <p>{{ 'about.who.text2' | translate }}</p>
         <div class="sobre-stats">
           <div class="stat-item">
             <h4>150+</h4>
-            <p>Projetos Entregues</p>
+            <p>{{ 'about.stats.projects' | translate }}</p>
           </div>
           <div class="stat-item">
             <h4>98%</h4>
-            <p>Satisfação dos Clientes</p>
+            <p>{{ 'about.stats.satisfaction' | translate }}</p>
           </div>
           <div class="stat-item">
             <h4>50+</h4>
-            <p>Clientes Ativos</p>
+            <p>{{ 'about.stats.clients' | translate }}</p>
           </div>
         </div>
       </div>
-      <div class="sobre-image">
-        <div class="image-placeholder">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
-            <line x1="8" y1="21" x2="16" y2="21"></line>
-            <line x1="12" y1="17" x2="12" y2="21"></line>
-          </svg>
+      <div class="sobre-image scroll-animate">
+        <div class="feedback-carousel">
+          <div class="feedback-container">
+            <div 
+              *ngFor="let feedbackId of currentFeedbacks; let i = index" 
+              class="feedback-bubble"
+              [class.active]="i === activeFeedbackIndex"
+            >
+              <div class="bubble-content">
+                <div class="quote-icon">💬</div>
+                <p class="feedback-text">{{ 'feedback.' + feedbackId + '.text' | translate }}</p>
+                <div class="feedback-author">
+                  <strong>{{ 'feedback.' + feedbackId + '.author' | translate }}</strong>
+                  <span>{{ 'feedback.' + feedbackId + '.role' | translate }}</span>
+                </div>
+              </div>
+              <div class="bubble-arrow"></div>
+            </div>
+          </div>
+          <div class="carousel-dots">
+            <span 
+              *ngFor="let dot of [0,1,2]; let i = index" 
+              class="dot"
+              [class.active]="i === activeFeedbackIndex"
+            ></span>
+          </div>
         </div>
       </div>
     </div>
@@ -91,32 +130,32 @@
 <!-- Serviços Section -->
 <section id="servicos" class="servicos" [attr.data-theme]="currentTheme">
   <div class="container">
-    <div class="section-header">
-      <h2 class="section-title">Nossos Serviços</h2>
-      <p class="section-subtitle">Soluções completas para o seu negócio digital</p>
+    <div class="section-header scroll-animate">
+      <h2 class="section-title">{{ 'services.title' | translate }}</h2>
+      <p class="section-subtitle">{{ 'services.subtitle' | translate }}</p>
     </div>
     <div class="servicos-grid">
-      <div class="servico-card">
+      <div class="servico-card scroll-animate">
         <div class="servico-icon">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
             <polyline points="16 18 22 12 16 6"></polyline>
             <polyline points="8 6 2 12 8 18"></polyline>
           </svg>
         </div>
-        <h3>Desenvolvimento Web</h3>
-        <p>Criamos aplicações web modernas, responsivas e escaláveis utilizando as tecnologias mais avançadas do mercado.</p>
+        <h3>{{ 'services.web.title' | translate }}</h3>
+        <p>{{ 'services.web.desc' | translate }}</p>
       </div>
-      <div class="servico-card">
+      <div class="servico-card scroll-animate">
         <div class="servico-icon">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
             <rect x="5" y="2" width="14" height="20" rx="2" ry="2"></rect>
             <line x1="12" y1="18" x2="12.01" y2="18"></line>
           </svg>
         </div>
-        <h3>Aplicativos Mobile</h3>
-        <p>Desenvolvemos apps nativos e híbridos para iOS e Android com foco em performance e experiência do usuário.</p>
+        <h3>{{ 'services.mobile.title' | translate }}</h3>
+        <p>{{ 'services.mobile.desc' | translate }}</p>
       </div>
-      <div class="servico-card">
+      <div class="servico-card scroll-animate">
         <div class="servico-icon">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
             <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path>
@@ -124,19 +163,19 @@
             <line x1="12" y1="22.08" x2="12" y2="12"></line>
           </svg>
         </div>
-        <h3>Sistemas Corporativos</h3>
-        <p>Soluções empresariais robustas para otimizar processos e aumentar a produtividade do seu negócio.</p>
+        <h3>{{ 'services.corporate.title' | translate }}</h3>
+        <p>{{ 'services.corporate.desc' | translate }}</p>
       </div>
-      <div class="servico-card">
+      <div class="servico-card scroll-animate">
         <div class="servico-icon">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
             <path d="M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z"></path>
           </svg>
         </div>
-        <h3>Cloud & DevOps</h3>
-        <p>Implementação de infraestrutura em nuvem e automação de processos para máxima eficiência.</p>
+        <h3>{{ 'services.cloud.title' | translate }}</h3>
+        <p>{{ 'services.cloud.desc' | translate }}</p>
       </div>
-      <div class="servico-card">
+      <div class="servico-card scroll-animate">
         <div class="servico-icon">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
             <circle cx="12" cy="12" r="10"></circle>
@@ -145,39 +184,34 @@
             <line x1="15" y1="9" x2="15.01" y2="9"></line>
           </svg>
         </div>
-        <h3>UI/UX Design</h3>
-        <p>Design centrado no usuário para criar experiências digitais intuitivas e envolventes.</p>
+        <h3>{{ 'services.design.title' | translate }}</h3>
+        <p>{{ 'services.design.desc' | translate }}</p>
       </div>
-      <div class="servico-card">
+      <div class="servico-card scroll-animate">
         <div class="servico-icon">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
             <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
           </svg>
         </div>
-        <h3>Manutenção & Suporte</h3>
-        <p>Suporte técnico especializado e manutenção contínua para garantir o funcionamento perfeito.</p>
+        <h3>{{ 'services.support.title' | translate }}</h3>
+        <p>{{ 'services.support.desc' | translate }}</p>
       </div>
     </div>
   </div>
 </section>
 
 <!-- Orçamento Section -->
-<section id="orcamento" class="orcamento" [attr.data-theme]="currentTheme">
+<section id="orcamento" class="orcamento">
   <div class="container">
-    <div class="orcamento-content">
-      <h2>Solicite um Orçamento</h2>
-      <p>Fale conosco agora pelo WhatsApp e receba uma proposta personalizada para o seu projeto</p>
+    <div class="orcamento-content scroll-animate">
+      <h2>{{ 'budget.title' | translate }}</h2>
+      <p>{{ 'budget.description' | translate }}</p>
       <button class="btn-whatsapp-large" (click)="solicitarOrcamento()">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+        <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="currentColor">
           <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/>
         </svg>
-        Solicitar Orçamento no WhatsApp
+        {{ 'budget.cta' | translate }}
       </button>
-      <div class="orcamento-info">
-        <p>✓ Resposta rápida e personalizada</p>
-        <p>✓ Atendimento humanizado</p>
-        <p>✓ Tire todas as suas dúvidas</p>
-      </div>
     </div>
   </div>
 </section>
@@ -188,28 +222,28 @@
     <div class="footer-content">
       <div class="footer-section">
         <h3>SENTS</h3>
-        <p>Transformando ideias em realidade digital com tecnologia e inovação.</p>
+        <p>{{ 'footer.tagline' | translate }}</p>
       </div>
       <div class="footer-section">
-        <h4>Links Rápidos</h4>
+        <h4>{{ 'footer.quicklinks' | translate }}</h4>
         <ul>
-          <li><a href="#home">Home</a></li>
-          <li><a href="#sobre">Sobre</a></li>
-          <li><a href="#servicos">Serviços</a></li>
-          <li><a href="#orcamento">Orçamento</a></li>
+          <li><a href="#home">{{ 'nav.home' | translate }}</a></li>
+          <li><a href="#sobre">{{ 'nav.about' | translate }}</a></li>
+          <li><a href="#servicos">{{ 'nav.services' | translate }}</a></li>
+          <li><a href="#orcamento">{{ 'nav.budget' | translate }}</a></li>
         </ul>
       </div>
       <div class="footer-section">
-        <h4>Serviços</h4>
+        <h4>{{ 'footer.services' | translate }}</h4>
         <ul>
-          <li><a href="#servicos">Desenvolvimento Web</a></li>
-          <li><a href="#servicos">Apps Mobile</a></li>
-          <li><a href="#servicos">Sistemas Corporativos</a></li>
-          <li><a href="#servicos">Cloud & DevOps</a></li>
+          <li><a href="#servicos">{{ 'services.web.title' | translate }}</a></li>
+          <li><a href="#servicos">{{ 'services.mobile.title' | translate }}</a></li>
+          <li><a href="#servicos">{{ 'services.corporate.title' | translate }}</a></li>
+          <li><a href="#servicos">{{ 'services.cloud.title' | translate }}</a></li>
         </ul>
       </div>
       <div class="footer-section">
-        <h4>Redes Sociais</h4>
+        <h4>{{ 'footer.social' | translate }}</h4>
         <div class="social-links">
           <a href="#" class="social-link">LinkedIn</a>
           <a href="#" class="social-link">GitHub</a>
@@ -219,7 +253,7 @@
       </div>
     </div>
     <div class="footer-bottom">
-      <p>&copy; 2025 SENTS. Todos os direitos reservados.</p>
+      <p>&copy; 2025 SENTS. {{ 'footer.rights' | translate }}</p>
     </div>
   </div>
 </footer>
