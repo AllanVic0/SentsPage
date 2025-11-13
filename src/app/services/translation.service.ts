@@ -14,9 +14,10 @@ export class TranslationService {
     'nav.services': { pt: 'Serviços', en: 'Services' },
     'nav.budget': { pt: 'Orçamento', en: 'Budget' },
     
-    'hero.title': { pt: 'Transformamos Ideias em Soluções Digitais', en: 'We Transform Ideas into Digital Solutions' },
-    'hero.subtitle': { pt: 'Desenvolvimento de software personalizado para impulsionar o seu negócio', en: 'Custom software development to boost your business' },
-    'hero.cta': { pt: 'Solicitar Orçamento', en: 'Request Quote' },
+    'hero.title': { pt: 'Desbloqueie o potencial de crescimento da sua empresa', en: 'Unlock your company\'s growth potential' },
+    'hero.subtitle': { pt: 'Navegue os desafios do mercado, maximize oportunidades de crescimento e garanta o alcance dos seus objetivos com a nossa consultoria estratégica', en: 'Navigate market challenges, maximize growth opportunities and ensure you reach your goals with our strategic consulting' },
+    'hero.cta.services': { pt: 'Conheça Nossos Serviços', en: 'Discover Our Services' },
+    'hero.cta.contact': { pt: 'Entre em Contato', en: 'Get in Touch' },
     
     'about.title': { pt: 'Sobre A Sents', en: 'About Sents' },
     'about.subtitle': { pt: 'Conheça nossa história e valores', en: 'Know our history and values' },

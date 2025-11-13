@@ -53,16 +53,18 @@
 </header>
 
 <!-- Hero Section -->
-<!-- Hero Section -->
 <section class="hero">
   <div class="container">
     <div class="hero-content scroll-animate">
       <h1 class="hero-title">{{ 'hero.title' | translate }}</h1>
       <p class="hero-subtitle">{{ 'hero.subtitle' | translate }}</p>
       <div class="hero-buttons">
-        <button class="btn btn-primary btn-large" (click)="solicitarOrcamento()">
-          {{ 'hero.cta' | translate }}
-        </button>
+        <a href="#servicos" class="btn btn-primary btn-large">
+          {{ 'hero.cta.services' | translate }}
+        </a>
+        <a href="#orcamento" class="btn btn-secondary btn-large">
+          {{ 'hero.cta.contact' | translate }}
+        </a>
       </div>
     </div>
   </div>

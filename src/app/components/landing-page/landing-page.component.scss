@@ -277,7 +277,8 @@ $dark-border: #1e293b;
   min-height: 100vh;
   display: flex;
   align-items: center;
-  background: linear-gradient(135deg, $primary-color 0%, #1a2f3f 100%);
+  background: linear-gradient(135deg, rgba(14, 26, 38, 0.4) 0%, rgba(26, 47, 63, 0.5) 100%), 
+              url('/assets/images/backgrounds/tech-background.jpg') center/cover no-repeat;
   color: $white;
   padding-top: 80px;
   overflow: hidden;
@@ -290,8 +291,8 @@ $dark-border: #1e293b;
     right: 0;
     bottom: 0;
     background: 
-      radial-gradient(circle at 20% 50%, rgba(0, 174, 239, 0.3) 0%, transparent 50%),
-      radial-gradient(circle at 80% 80%, rgba(0, 174, 239, 0.2) 0%, transparent 50%);
+      radial-gradient(circle at 20% 50%, rgba(0, 174, 239, 0.1) 0%, transparent 50%),
+      radial-gradient(circle at 80% 80%, rgba(0, 174, 239, 0.08) 0%, transparent 50%);
     pointer-events: none;
   }
 
@@ -301,7 +302,7 @@ $dark-border: #1e293b;
     left: 0;
     right: 0;
     bottom: 0;
-    opacity: 0.08;
+    opacity: 0.05;
     background-image: 
       linear-gradient(30deg, rgba(249, 250, 251, 0.5) 12%, transparent 12.5%, transparent 87%, rgba(249, 250, 251, 0.5) 87.5%, rgba(249, 250, 251, 0.5)),
       linear-gradient(150deg, rgba(249, 250, 251, 0.5) 12%, transparent 12.5%, transparent 87%, rgba(249, 250, 251, 0.5) 87.5%, rgba(249, 250, 251, 0.5));
@@ -312,8 +313,8 @@ $dark-border: #1e293b;
     position: relative;
     z-index: 1;
     max-width: 800px;
-    text-align: center;
-    margin: 0 auto;
+    text-align: left;
+    margin: 0;
   }
 
   .hero-title {
@@ -333,7 +334,8 @@ $dark-border: #1e293b;
   .hero-buttons {
     display: flex;
     gap: 1.5rem;
-    justify-content: center;
+    justify-content: flex-start;
+    flex-wrap: wrap;
   }
 }
 
